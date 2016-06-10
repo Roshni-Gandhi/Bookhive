@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BookHive.Models.book>
+
+@{
+    ViewBag.Title = "ActionAndAdventure";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>@ViewBag.CategoryName</h2>
+@foreach (var i in Model)
+{           
+    <div class="bookblog">
+        <img src="@i.GetImageUrl()" class="Images" />
+        <span class="details">
+            <span class="bookname">@i.BookName</span><br />
+            @if (@i.IsDiscounted == true)
+            {
+                <span class="bookprice">Price: Rs. @i.Price  Discounted Price is Rs. @i.DiscountedPrice</span>
+            }
+            else
+            {
+                <span class="bookprice">Price: Rs.@i.Price</span>
+            }
+            <br />
+            <span class="bookprice">Author: @i.AuthorName</span>           <br />
+            <br />
+
+            <span class="bookprice"><a href="/home/BookDetails/@i.BookId">Click Here</a> for more details......<br />
+                <br />
+            </span>
+            @if(!User.IsInRole("Admin"))
+            {
+            <a href="/home/BookDetails/@i.BookId" class="BuyNow">Buy Now</a>
+            }
+            @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
+            {
+                <a href="/home/AddToSession/@i.BookId" class="AddToSession">Add to Cart</a>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/home/Delete/@i.BookId" class="BuyNow">Delete Book</a>
+                <a href="/home/Update/@i.BookId" class="BuyNow">Update Book</a>
+            }
+        </span>
+    </div>
+            
+}

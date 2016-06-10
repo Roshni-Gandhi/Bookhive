@@ -1,0 +1,37 @@
+﻿@model BookHive.Models.book
+@{
+    ViewBag.Title = "BookDetails";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    
+}
+
+<h1 class="bookprice">Book Details</h1>
+
+
+<div class="BookBlogDetails">
+    <img src="@Model.GetImageUrl()" class="ImagesBig" />
+    <div class="details">
+        <span class="bookname">@Model.BookName</span><br />
+        <span class="bookprice">Price: Rs. @Model.Price
+            <br />
+            Author: @Model.AuthorName
+            <br />
+            <br />
+        </span>
+        <form method="post" action="/Home/PlaceOrder">
+            <a href="/home/PlaceOrder" class="BuyNow" method="post">Place Order</a>
+
+            @if (Request.IsAuthenticated)
+            {
+                <a href="/home/AddToSession/@Model.BookId" class="AddToSession" >Add to Cart</a>
+            }
+        </form>
+        <h1 class="bookprice">Description</h1>
+        <span class="bookprice">@Model.Description<br />
+            <br />
+        </span>
+        
+        
+        
+    </div>
+</div>
