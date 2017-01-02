@@ -12,7 +12,7 @@
     
    
         <div class="editor-label">
-            Username
+            @Html.LabelFor(model=>model.UserName)
         </div>
         <div class="editor-feild">
             @Html.EditorFor(model=>model.UserName)
@@ -21,7 +21,7 @@
         </div>
 
         <div class="editor-label">
-            EmailID
+           @Html.LabelFor(model=>model.EmailId)
         </div>
         <div class="editor-feild">
             @Html.EditorFor(model=>model.EmailId)
@@ -37,7 +37,7 @@
         </div>
     
         <div class="editor-label">
-            Confirm-Password
+            <b>Confirm-Password</b>
         </div>
         <div class="editor-feild">
             @Html.EditorFor(model=>model.RPassword)
@@ -64,19 +64,21 @@
             @Html.LabelFor(model=>model.State)
         </div>
         <div class="editor-feild">
-            @Html.EditorFor(model=>model.State)
-            @Html.ValidationMessageFor(model=>model.State)
+         
+            @Html.DropDownListFor(model=>model.State, new SelectList(new [] {"Gujarat","Jammu & Kashmir","Kerala","Maharashtra","Punjab","Rajasthan","Tamil Nadu","Uttar Pradesh"}),"Choose State")
+             @Html.ValidationMessageFor(model=>model.State)
         </div>
     
         <div class="editor-label">
-           Contact no.
+           @Html.LabelFor(model=>model.ContactNo)
         </div>
         <div class="editor-feild">
             @Html.EditorFor(model=>model.ContactNo)
             @Html.ValidationMessageFor(model=>model.ContactNo)
         </div>
-    
-        <input type="Submit" value="Submit" />
+    <p>     </p>
+       
+    <button type="Submit" value="Submit" class="btn btn-primary">Register</button>
     
 }
 </div>

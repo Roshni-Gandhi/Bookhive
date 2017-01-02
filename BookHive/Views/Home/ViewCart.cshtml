@@ -9,7 +9,7 @@
 <h1 class="bookprice">View Cart</h1>
 @if (Session["UserCart"] != null && (Session["UserCart"] as List<int>).Count>0)
 {
-    <table class="tableborder">
+    <table class="table tableborder">
     <tr>
         <th class="bookprice">
             Book name
@@ -30,7 +30,9 @@
         </td>
 
         <td>
-            <a href="/Home/RemoveFromCart/@item.BookId" class="BuyNow">Remove From Cart</a>
+            <a href="/Home/RemoveFromCart/@item.BookId">
+                    <button type="button" class="btn btn-primary">Remove From Cart</button></a>
+            
         </td>
         
     </tr>
@@ -46,8 +48,8 @@
 
 </table>
 @*<h3> Total amount you have to pay is @Total</h3>*@
-<form method="post" action="/Home/PlaceOrder"> 
-    <a href="/home/PlaceOrder" class="BuyNow" method="post">Place Order</a>
+<form action="/Home/PlaceOrder"> 
+    <a href="/home/PlaceOrder"><button class="btn btn-primary">Place Order</button></a>
 </form>
     
 }

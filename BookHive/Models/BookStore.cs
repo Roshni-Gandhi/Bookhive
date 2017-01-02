@@ -14,21 +14,45 @@ namespace BookHive.Models
 {
     public class BookStore
     {
-        private string ConnectionString = "Data Source=.; Initial Catalog=BookHive;Integrated Security=SSPI";
+        #region Singleton
+        private static BookStore instance = null;
 
+        private BookStore()
+        {
+        }
+
+        public static BookStore Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new BookStore();
+                }
+                return instance;
+            }
+        }
+        #endregion
+        private string ConnectionString = "Data Source=.; Initial Catalog=BookHive;Integrated Security=SSPI";
+        int discountPercent;
+        string discountCategory;
         public List<book> GetBooks()
         {
 
-            string discountFilePath = HttpContext.Current.Server.MapPath("~/App_Data/DiscountSettings.xml");
+            string discountFilePath = HttpContext.Current.Server.MapPath("/App_Data/DiscountSettings.xml");
             XDocument xmlDoc = XDocument.Load(discountFilePath);
             IEnumerable<XElement> filteredDiscounts;
             filteredDiscounts = from d in xmlDoc.Descendants("Discount")
-                                where Convert.ToDateTime(d.Element("StartDate").Value) < DateTime.Now 
-                                && Convert.ToDateTime(d.Element("EndDate").Value) >= DateTime.Now
+                                where Convert.ToDateTime(d.Element("StartDate").Value)  < DateTime.Now 
+                                && DateTime.Parse(d.Element("EndDate").Value) >= DateTime.Now
                                 select d;
+            
             XElement discountElement = filteredDiscounts.LastOrDefault();
-            string discounCategory = discountElement.Element("GenreName").Value;
-            int discountPercent = Convert.ToInt32(discountElement.Element("DiscountPercentage").Value);
+            if (discountElement != null)
+            {
+                discountCategory = discountElement.Element("GenreName").Value;
+                discountPercent = Convert.ToInt32(discountElement.Element("DiscountPercentage").Value);
+            }
             SqlConnection con = new SqlConnection(this.ConnectionString);
             SqlCommand cmd = new SqlCommand("Select * from books", con);
             con.Open();
@@ -43,7 +67,7 @@ namespace BookHive.Models
                 b.Price = Convert.ToInt32(dr["Price"]);
                 b.Description = Convert.ToString(dr["Descriptions"]);
                 b.Categories = Convert.ToString(dr["Categories"]);
-                if (b.Categories == discounCategory)
+                if (b.Categories == discountCategory)
                 {
                     b.IsDiscounted = true;
                     b.DiscountPercent = discountPercent;
@@ -99,7 +123,6 @@ namespace BookHive.Models
                 u.UserName = Convert.ToString(dr["UserName"]);
             }
             var userId = u.UserId;
-            //var userData = u.Role;
             var userData = userId.ToString(CultureInfo.InvariantCulture);
 
             var authTicket = new FormsAuthenticationTicket(1, //version

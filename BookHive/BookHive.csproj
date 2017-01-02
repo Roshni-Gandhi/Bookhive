@@ -135,7 +135,12 @@
     <Content Include="App_Data\DiscountSettings.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\BGBH1.jpg" />
     <Content Include="Images\bh-logo.png" />
     <Content Include="Images\books-1.jpg" />
@@ -169,8 +174,21 @@
     <Content Include="Images\images.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\titleback.jpg" />
-    <Content Include="Scipts\JScript.js" />
-    <Content Include="Scipts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\JScript.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -181,6 +199,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Shared\LayoutWithoutSidebar.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
@@ -226,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\PlaceOrder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scipts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

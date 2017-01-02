@@ -20,12 +20,12 @@ namespace BookHive.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Login(Login l,string ReturnUrl = "")
         {
-            BookStore bs = new BookStore();
+            //BookStore bs = new BookStore();
             if(ModelState.IsValid)
             {
-                if (bs.GetLoggedIn(l, ReturnUrl))
+                if (BookStore.Instance.GetLoggedIn(l, ReturnUrl))
                 {
-                    bs.SetupFormsAuthTicket(l.UserName,l.RememberMe);
+                    BookStore.Instance.SetupFormsAuthTicket(l.UserName,l.RememberMe);
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -37,16 +37,16 @@ namespace BookHive.Controllers
         [HttpPost]
         public ActionResult Register(UserAccount ua,string ReturnUrl = "")
         {
-            BookStore bs = new BookStore();
+            //BookStore bs = new BookStore();
             Login l = new Login();
-            bs.AddUsers(ua);
+            BookStore.Instance.AddUsers(ua);
             l.UserName = ua.UserName;
     
             if (ModelState.IsValid)
             {
-                if (bs.GetLoggedIn(l,ReturnUrl))
+                if (BookStore.Instance.GetLoggedIn(l,ReturnUrl))
                 {
-                    bs.SetupFormsAuthTicket(l.UserName, l.RememberMe);
+                    BookStore.Instance.SetupFormsAuthTicket(l.UserName, l.RememberMe);
                 }
                 return RedirectToAction("Index", "Home");
             }

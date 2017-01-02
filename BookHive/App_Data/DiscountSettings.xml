@@ -2,8 +2,8 @@
 <DiscountDetails>
   <Discount>
     <GenreName>Biographies</GenreName>
-    <StartDate>2016-05-01</StartDate>
-    <EndDate>2016-05-31</EndDate>
+    <StartDate>06-01-2016</StartDate>
+    <EndDate>06-03-2016</EndDate>
     <DiscountPercentage>10</DiscountPercentage>
   </Discount>
 </DiscountDetails>

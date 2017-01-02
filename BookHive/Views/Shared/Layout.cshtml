@@ -1,12 +1,17 @@
 ﻿<!DOCTYPE html>
 
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <script src="~/Scipts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scipts/JScript.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/CustomStyle.css" />
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             $(".AddToSession").each(function () {
@@ -17,64 +22,37 @@
     </script>
 </head>
 <body>
-    <p id="Title">
+    @*<p id="Title">
         <img src="~/Images/logo.png" width="400" height="100" align="middle" />
-        @*<img src="~/Images/book.jpg" width="500" height="100" />*@
-    </p>
+        @*<img src="~/Images/book.jpg" width="500" height="100" />
+    </p>*@
 
 
-    <div class="Header">
-        <span id="Links">
-            <a href="/home/Index">Home</a>
-            <a href="/home/AboutUs">About Us</a>
-            <a href="/home/ContactUs">Contact Us</a>
-            @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
-            {
-                <a href="/Home/ViewCart">View Cart</a>    
-            }
-           
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="dropdown">
-                    <span class="FontColor">Admin Settings</span>
-                    <div class="dropdown-content">
-                        <a href="/home/AddBook">Add Books</a>
-                <a href="/home/ViewOrderDetails">View Order Details</a>
+    <div>
+       @Html.Partial("Header")
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 ">
+                    <div class="sidebarContent">
+                        <h2>Categories  </h2>
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="/home/Index">All Books</a></li>
+                            <li class="list-group-item"><a href="/home/ActionAndAdventure" data-id="1">Action And Adventure</a></li>
+                            <li class="list-group-item"><a href="/home/LiteratureAndFiction" data-id="2">Literature And Fiction</a></li>
+                            <li class="list-group-item"><a href="/home/Biographies" data-id="3">Biographies</a></li>
+                            <li class="list-group-item"><a href="/home/InformationTechnology" data-id="4">Information Technology</a></li>
+                            <li class="list-group-item"><a href="/home/Childrens" data-id="5">Children's and Young Adults</a></li>
+                        </ul>
                     </div>
                 </div>
-                
-            }
-            @if (Request.IsAuthenticated)
-            {
-                
-                <span class="FontColor">Welcome!!  @(Request.IsAuthenticated ? HttpContext.Current.User.Identity.Name : null)</span>
-                <a href="/Account/Logout">Log Out</a>
-            }
-            else
-            {
-                <a href="/Account/Login">Log In</a>
-            }
- 
-        </span>
-    </div>
-    <br />
-    <br />
 
 
-    <div id="leftside">
-        <p class="Categories">CATEGORIES </p>
-        <p><a href="/home/Index">All Books</a></p>
-        <p><a href="/home/ActionAndAdventure" data-id="1" >Action And Adventure</a></p>
-        <p><a href="/home/LiteratureAndFiction" data-id="2">Literature And Fiction</a></p>
-        <p><a href="/home/Biographies" data-id="3">Biographies</a></p>
-        <p><a href="/home/InformationTechnology" data-id="4">Information Technology</a></p>
-        <p><a href="/home/Childrens" data-id="5">Children's and Young Adults</a></p>
+                <div class="col-md-9 ">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
     </div>
 
-
-
-    <div id="container">
-        @RenderBody()
-    </div>
 </body>
 </html>

@@ -8,39 +8,44 @@
 <h2>@ViewBag.CategoryName</h2>
 @foreach (var i in Model)
 {           
-    <div class="bookblog">
-        <img src="@i.GetImageUrl()" class="Images" />
-        <span class="details">
-            <span class="bookname">@i.BookName</span><br />
+    <div class="row singleBook">
+        <div class="col-md-3">
+            <a href="#" class="thumbnail images">
+                <img src="@i.GetImageUrl()" class="images" /></a>
+        </div>
+        <div class="col-md-9">
+            <p class="h4 text-primary">@i.BookName</p>
+            
             @if (@i.IsDiscounted == true)
             {
-                <span class="bookprice">Price: Rs. @i.Price  Discounted Price is Rs. @i.DiscountedPrice</span>
+                <p class="text-info">Price: Rs. @i.Price  Discounted Price is Rs. @i.DiscountedPrice</p>
             }
             else
             {
-                <span class="bookprice">Price: Rs.@i.Price</span>
+                <p class="text-info">Price: Rs.@i.Price</p>
             }
-            <br />
-            <span class="bookprice">Author: @i.AuthorName</span>           <br />
-            <br />
 
-            <span class="bookprice"><a href="/home/BookDetails/@i.BookId">Click Here</a> for more details......<br />
-                <br />
-            </span>
-            @if(!User.IsInRole("Admin"))
+            <p class="text-info">Author: @i.AuthorName</p>
+
+
+            <p class="text-info"><a href="/home/BookDetails/@i.BookId">Click Here</a> for more details......</p>
+            @if (!User.IsInRole("Admin"))
             {
-            <a href="/home/BookDetails/@i.BookId" class="BuyNow">Buy Now</a>
+                <a href="/home/BookDetails/@i.BookId">
+                    <button type="button" class="btn btn-primary">Buy Now</button></a>
             }
             @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
             {
-                <a href="/home/AddToSession/@i.BookId" class="AddToSession">Add to Cart</a>
+                <a href="/home/AddToSession/@i.BookId" class="AddToSession" >
+                    <button type="button" class="btn btn-primary">Add to Cart</button></a>
             }
             @if (User.IsInRole("Admin"))
             {
-                <a href="/home/Delete/@i.BookId" class="BuyNow">Delete Book</a>
-                <a href="/home/Update/@i.BookId" class="BuyNow">Update Book</a>
+                <a href="/home/Delete/@i.BookId" class="btn btn-primary">Delete Book</a>
+                <a href="/home/Update/@i.BookId" class="btn btn-primary">Update Book</a>
             }
-        </span>
+        </div>
     </div>
+    
             
 }

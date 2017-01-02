@@ -14,8 +14,8 @@ namespace BookHive.Controllers
         
         public ActionResult Index()
         {
-            BookStore bs = new BookStore();
-            return View(bs.GetBooks());
+            //BookStore bs = new BookStore();
+            return View(BookStore.Instance.GetBooks());
         }
         public ActionResult ActionAndAdventure()
         {
@@ -49,7 +49,7 @@ namespace BookHive.Controllers
         
         public ActionResult BookDetails(int id)
         {
-            foreach (var i in new BookStore().GetBooks())
+            foreach (var i in BookStore.Instance.GetBooks())
             {
                 if (id == i.BookId)
                 {
@@ -61,7 +61,7 @@ namespace BookHive.Controllers
         private ActionResult GetCategoryView(string CategoryName)
         {
             
-            var results = from item in new BookStore().GetBooks()
+            var results = from item in BookStore.Instance.GetBooks()
                           where item.Categories == CategoryName
                           select item;
             ViewBag.CategoryName = CategoryName;
@@ -82,15 +82,15 @@ namespace BookHive.Controllers
         [HttpPost]
         public ActionResult AddBook(book b)
         {
-            BookStore bs = new BookStore();
-            bs.AddBooks(b);
+            //BookStore bs = new BookStore();
+            BookStore.Instance.AddBooks(b);
             return RedirectToAction("Index","Home");
         }
 
         [Authorize(Roles="Admin")]
         public ActionResult Delete(int id)
         {
-            foreach (var i in new BookStore().GetBooks())
+            foreach (var i in BookStore.Instance.GetBooks())
             {
                 if (id == i.BookId)
                 {
@@ -103,15 +103,15 @@ namespace BookHive.Controllers
         [HttpPost]
         public ActionResult Delete(book b)
         {
-            BookStore bs = new BookStore();
-            bs.DeleteBook(b);
+            //BookStore bs = new BookStore();
+            BookStore.Instance.DeleteBook(b);
             return RedirectToAction("Index","Home");
         }
         
         [Authorize(Roles = "Admin")]
         public ActionResult Update(int id)
         {
-            foreach (var i in new BookStore().GetBooks())
+            foreach (var i in BookStore.Instance.GetBooks())
             {
                 if (id == i.BookId)
                 {
@@ -124,8 +124,8 @@ namespace BookHive.Controllers
         [HttpPost]
         public ActionResult Update(book b)
         {
-            BookStore bs = new BookStore();
-            bs.UpdateBook(b);
+            //BookStore bs = new BookStore();
+            BookStore.Instance.UpdateBook(b);
             return RedirectToAction("Index","Home");
         }
         [Authorize]
@@ -154,7 +154,7 @@ namespace BookHive.Controllers
             }
             else
             {
-                var p = from b in new BookStore().GetBooks()
+                var p = from b in BookStore.Instance.GetBooks()
                         where cart.Contains(b.BookId)
                         select b;
                 return View(p);
@@ -178,17 +178,17 @@ namespace BookHive.Controllers
             var cart = Session["UserCart"] as List<int>;
             //HttpContext.Current.User.Identity.Name
             string Name= ControllerContext.HttpContext.User.Identity.Name;
-            BookStore bs = new BookStore();
-            bs.PlaceOrder(Name, cart);
+            //BookStore bs = new BookStore();
+            BookStore.Instance.PlaceOrder(Name, cart);
             Session["UserCart"] = null;
             return View(); 
         }
         [Authorize(Roles = "Admin")]
         public ActionResult ViewOrderDetails()
         {
-            BookStore bs = new BookStore();
+            //BookStore bs = new BookStore();
             
-            return View(bs.ViewOrderDetails());
+            return View(BookStore.Instance.ViewOrderDetails());
         }
     }
 }
